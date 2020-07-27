@@ -8,16 +8,31 @@
     android:background="@color/colorPrimaryDark">
 
 
-    <ImageView
-        android:id="@+id/quiz_item_image"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/quiz_card"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/placeholder_image" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="0dp"
+        app:cardBackgroundColor="@color/colorPrimaryDark"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/quiz_item_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/placeholder_image" />
+    </androidx.cardview.widget.CardView>
 
+    <View
+        android:id="@+id/image_cover_view"
+        android:layout_width="0dp"
+        android:layout_height="46dp"
+        android:background="@drawable/image_cover"
+        android:translationZ="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/quiz_card"
+        app:layout_constraintEnd_toEndOf="@+id/quiz_card"
+        app:layout_constraintStart_toStartOf="@+id/quiz_card" />
     <TextView
         android:id="@+id/quiz_item_title"
         android:layout_width="wrap_content"
@@ -30,19 +45,20 @@
         android:textSize="24dp"
         app:fontFamily="@font/anton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/quiz_item_image" />
+        app:layout_constraintTop_toBottomOf="@+id/quiz_card" />
 
     <TextView
         android:id="@+id/quiz_item_description"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
         android:text="Quiz Description"
         android:textColor="@color/cardview_light_background"
         android:textSize="16dp"
         app:fontFamily="@font/amiko"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/quiz_item_title" />
 
