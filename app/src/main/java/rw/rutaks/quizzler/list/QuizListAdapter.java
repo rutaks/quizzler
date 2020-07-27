@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 import rw.rutaks.quizzler.R;
@@ -32,11 +34,23 @@ public class QuizListAdapter extends RecyclerView.Adapter<QuizListAdapter.QuizVi
     @Override
     public void onBindViewHolder(@NonNull QuizViewHolder holder, int position) {
         holder.listTitle.setText(quizListModels.get(position).getName());
+        String imageUrl = quizListModels.get(position).getImage();
+        Glide.with(holder.itemView.getContext())
+                .load(imageUrl)
+                .centerCrop()
+                .placeholder(R.drawable.placeholder_image).into(holder.listImage);
+        String listDescription = quizListModels.get(position).getDesc();
+        if(listDescription.length() > 100) {
+            listDescription = quizListModels.get(position).getDesc().substring(0, 100);
+        }
+        holder.listDesc.setText(listDescription + "...");
+        holder.listLevel.setText(quizListModels.get(position).getLevel());
+
     }
 
     @Override
     public int getItemCount() {
-        if (quizListModels == null){
+        if (quizListModels == null) {
             return 0;
         }
         return quizListModels.size();
@@ -48,6 +62,7 @@ public class QuizListAdapter extends RecyclerView.Adapter<QuizListAdapter.QuizVi
         private TextView listDesc;
         private TextView listLevel;
         private Button listBtn;
+
         public QuizViewHolder(@NonNull View itemView) {
             super(itemView);
 
