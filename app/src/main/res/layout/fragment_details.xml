@@ -8,7 +8,7 @@
     tools:context=".details.DetailsFragment">
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/quiz_image"
         android:layout_width="0dp"
         android:layout_height="256dp"
         android:scaleType="centerCrop"
@@ -16,9 +16,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/placeholder_image" />
+    <View
+        android:id="@+id/image_cover_view"
+        android:layout_width="0dp"
+        android:layout_height="46dp"
+        android:background="@drawable/image_cover"
+        android:translationZ="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/quiz_image"
+        app:layout_constraintEnd_toEndOf="@+id/quiz_card"
+        app:layout_constraintStart_toStartOf="@+id/quiz_card" />
 
     <TextView
-        android:id="@+id/results_title"
+        android:id="@+id/quiz_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -29,24 +38,25 @@
         android:textSize="24dp"
         app:fontFamily="@font/anton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/quiz_image " />
 
     <TextView
         android:id="@+id/quiz_description"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
         android:text="Quiz Description"
         android:textColor="@color/cardview_light_background"
         android:textSize="16dp"
         app:fontFamily="@font/amiko"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/results_title" />
+        app:layout_constraintTop_toBottomOf="@+id/quiz_title" />
 
     <TextView
-        android:id="@+id/quiz_difficulty"
+        android:id="@+id/quiz_difficulty_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -60,35 +70,33 @@
         app:layout_constraintTop_toBottomOf="@+id/quiz_description" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/quiz_questions_title"
         android:layout_width="wrap_content"
         android:layout_height="18dp"
         android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="Total Questions"
         android:textColor="@color/colorLightText"
         android:textSize="12dp"
         app:fontFamily="@font/amiko"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/quiz_difficulty" />
+        app:layout_constraintTop_toBottomOf="@+id/quiz_difficulty_title" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/quiz_last_score_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="Your Last Score"
         android:textColor="@color/colorLightText"
         android:textSize="12dp"
         app:fontFamily="@font/amiko"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/quiz_questions_title" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/quiz_difficulty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
@@ -98,10 +106,10 @@
         android:textSize="12dp"
         app:fontFamily="@font/amiko"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/quiz_difficulty" />
+        app:layout_constraintTop_toTopOf="@+id/quiz_difficulty_title" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/quiz_total_question_no"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -112,10 +120,10 @@
         android:textSize="12dp"
         app:fontFamily="@font/amiko"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/quiz_difficulty" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/quiz_last_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -125,10 +133,10 @@
         android:textSize="12dp"
         app:fontFamily="@font/amiko"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/quiz_total_question_no" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/start_quiz_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"

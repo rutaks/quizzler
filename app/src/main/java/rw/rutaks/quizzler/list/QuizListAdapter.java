@@ -3,6 +3,7 @@ package rw.rutaks.quizzler.list;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,7 +19,12 @@ import rw.rutaks.quizzler.R;
 import rw.rutaks.quizzler.model.QuizListModel;
 
 public class QuizListAdapter extends RecyclerView.Adapter<QuizListAdapter.QuizViewHolder> {
-    List<QuizListModel> quizListModels;
+    private List<QuizListModel> quizListModels;
+    private OnItemClicked onItemClicked;
+
+    public QuizListAdapter(OnItemClicked onItemClicked) {
+        this.onItemClicked = onItemClicked;
+    }
 
     public void setQuizListModels(List<QuizListModel> quizListModels) {
         this.quizListModels = quizListModels;
@@ -56,7 +62,7 @@ public class QuizListAdapter extends RecyclerView.Adapter<QuizListAdapter.QuizVi
         return quizListModels.size();
     }
 
-    public class QuizViewHolder extends RecyclerView.ViewHolder {
+    public class QuizViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private ImageView listImage;
         private TextView listTitle;
         private TextView listDesc;
@@ -71,7 +77,16 @@ public class QuizListAdapter extends RecyclerView.Adapter<QuizListAdapter.QuizVi
             listDesc = itemView.findViewById(R.id.quiz_item_description);
             listLevel = itemView.findViewById(R.id.quiz_item_difficulty);
             listBtn = itemView.findViewById(R.id.view_quiz_item_btn);
-
+            listBtn.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            onItemClicked.onItemClicked(getAdapterPosition());
+        }
+    }
+
+    public interface OnItemClicked{
+        void onItemClicked(int position);
     }
 }
