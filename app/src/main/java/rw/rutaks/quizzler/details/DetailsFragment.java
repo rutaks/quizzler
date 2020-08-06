@@ -40,6 +40,8 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
 
     private static final String TAG = "DetailsFragment";
     private int position;
+    private String quizId;
+    private int totalQuestions;
 
     public DetailsFragment() {
     }
@@ -82,6 +84,8 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
                 quizDescription.setText(quizListModels.get(position).getDesc());
                 quizDifficulty.setText(quizListModels.get(position).getLevel());
                 quizQuestion.setText(String.valueOf(quizListModels.get(position).getQuestions()));
+                quizId = quizListModels.get(position).getQuiz_id();
+                totalQuestions = quizListModels.get(position).getQuestions();
             }
 
         });
@@ -93,6 +97,8 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
             case R.id.start_quiz_btn:
                 DetailsFragmentDirections.ActionDetailsFragmentToQuizFragment action = DetailsFragmentDirections.actionDetailsFragmentToQuizFragment();
                 action.setPosition(position);
+                action.setQuizId(quizId);
+                action.setTotalQuestions(totalQuestions);
                 navController.navigate(action);
                 break;
         }
