@@ -6,10 +6,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,6 +31,8 @@ public class QuizFragment extends Fragment {
     private TextView questionStatus;
     private TextView question;
     private TextView questionNumber;
+    private TextView questionTimer;
+    private ProgressBar questionProgress;
     private Button option1;
     private Button option2;
     private Button option3;
@@ -39,6 +43,7 @@ public class QuizFragment extends Fragment {
     private List<QuizQuestionModel> questions = new ArrayList<>();
     private int totalQuestions;
     private List<QuizQuestionModel> reAlignedQuestions = new ArrayList<>();
+    private CountDownTimer countDownTimer;
 
 
     public QuizFragment() {
@@ -96,6 +101,8 @@ public class QuizFragment extends Fragment {
         questionStatus = view.findViewById(R.id.quiz_question_status);
         question = view.findViewById(R.id.quiz_question);
         questionNumber = view.findViewById(R.id.quiz_question_number);
+        questionTimer = view.findViewById(R.id.quiz_question_time);
+        questionProgress = view.findViewById(R.id.quiz_question_progress);
         option1 = view.findViewById(R.id.quiz_option_1);
         option2 = view.findViewById(R.id.quiz_option_2);
         option3 = view.findViewById(R.id.quiz_option_3);
@@ -117,16 +124,12 @@ public class QuizFragment extends Fragment {
         option2.setEnabled(true);
         option3.setEnabled(true);
         option4.setEnabled(true);
+        questionProgress.setVisibility(View.VISIBLE);
     }
 
     private void disableFields() {
-
         questionStatus.setText(PlaceholderGenerator.getLoadingMessage());
 
-//        option1.setText(PlaceholderGenerator.getBtnDisabledMessage());
-//        option2.setText(PlaceholderGenerator.getBtnDisabledMessage());
-//        option3.setText(PlaceholderGenerator.getBtnDisabledMessage());
-//        option4.setText(PlaceholderGenerator.getBtnDisabledMessage());
         option1.setVisibility(View.INVISIBLE);
         option2.setVisibility(View.INVISIBLE);
         option3.setVisibility(View.INVISIBLE);
@@ -136,13 +139,40 @@ public class QuizFragment extends Fragment {
         option2.setEnabled(false);
         option3.setEnabled(false);
         option4.setEnabled(false);
+
+        questionProgress.setVisibility(View.INVISIBLE);
     }
 
-    private void loadingQuestions(int i) {
-        question.setText(reAlignedQuestions.get(i).getQuestion());
-        option1.setText(reAlignedQuestions.get(i).getOption_a());
-        option2.setText(reAlignedQuestions.get(i).getOption_b());
-        option3.setText(reAlignedQuestions.get(i).getOption_c());
-        option4.setText(reAlignedQuestions.get(i).getOption_d());
+    private void loadingQuestions(int question) {
+//        questionNumber.setText(question);
+        this.question.setText(reAlignedQuestions.get(question).getQuestion());
+        option1.setText(reAlignedQuestions.get(question).getOption_a());
+        option2.setText(reAlignedQuestions.get(question).getOption_b());
+        option3.setText(reAlignedQuestions.get(question).getOption_c());
+        option4.setText(reAlignedQuestions.get(question).getOption_d());
+
+        startTimer(question);
+    }
+
+    private void startTimer(int question) {
+        final Long timeToAnswer = reAlignedQuestions.get(question).getTimer();
+
+        countDownTimer = new CountDownTimer(timeToAnswer * 1000, 1000) {
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                questionTimer.setText(millisUntilFinished / 1000 + "");
+                Long progressPercent = millisUntilFinished / timeToAnswer * 10;
+                questionProgress.setProgress(progressPercent.intValue());
+            }
+
+            @Override
+            public void onFinish() {
+                questionTimer.setText("0");
+                disableFields();
+            }
+        };
+
+        countDownTimer.start();
     }
 }
